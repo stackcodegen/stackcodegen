@@ -8,7 +8,7 @@ This directory contains the evaluation outcomes and artifacts generated from the
 ### Figures
 
 - **[motivating_example.pdf](https://github.com/stackcodegen/stackcodegen/blob/main/Results/Figures/motivating_example.pdf)** — Motivating example [(stack overflow post#20076195)](https://stackoverflow.com/questions/20076195/what-is-the-most-efficient-way-of-counting-occurrences-in-pandas) used in the paper.
-- **[generated_output.pdf](https://github.com/stackcodegen/stackcodegen/blob/main/Results/Figures/motivating_example.pdf)** — Generated thoughts and code for the motivating example [stack overflow post#20076195](https://stackoverflow.com/questions/20076195/what-is-the-most-efficient-way-of-counting-occurrences-in-pandas).
+- **[generated_output.pdf](https://github.com/stackcodegen/stackcodegen/blob/main/Results/Figures/generated_thoughts.pdf)** — Generated thoughts and code for the motivating example [stack overflow post#20076195](https://stackoverflow.com/questions/20076195/what-is-the-most-efficient-way-of-counting-occurrences-in-pandas).
 
 ---
 
