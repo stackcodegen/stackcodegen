@@ -66,7 +66,7 @@ task: |
   }}
 
 refine: |
-  Your generated `sco` was evaluated by a reviewer and received the following feedback:
+  Your generated `scot` was evaluated by a reviewer and received the following feedback:
 
   LABEL:
   {label}
