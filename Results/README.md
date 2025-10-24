@@ -5,6 +5,13 @@ This directory contains the evaluation outcomes and artifacts generated from the
 
 ---
 
+### Figures
+
+- **[motivating_example.pdf](https://github.com/stackcodegen/stackcodegen/blob/main/Results/Figures/motivating_example.pdf)** — Motivating example [(stack overflow post#20076195)](https://stackoverflow.com/questions/20076195/what-is-the-most-efficient-way-of-counting-occurrences-in-pandas) used in the paper.
+- **[generated_output.pdf](https://github.com/stackcodegen/stackcodegen/blob/main/Results/Figures/motivating_example.pdf)** — Generated thoughts and code for the motivating example [stack overflow post#20076195](https://stackoverflow.com/questions/20076195/what-is-the-most-efficient-way-of-counting-occurrences-in-pandas).
+
+---
+
 ### Evaluation Summaries
 
 - **[StackCodeGen_Results.xlsx](https://github.com/stackcodegen/stackcodegen/blob/main/Results/StackCodeGen%20Results.xlsx)** — consolidated evaluation reports for all research questions (RQ1–RQ3), including model-level metrics (Precision, Recall, F1, F3, Execution Success Rate, Levenshtein Distance, etc.).
