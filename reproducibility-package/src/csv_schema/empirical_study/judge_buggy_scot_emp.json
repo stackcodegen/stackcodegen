@@ -1,0 +1,12 @@
+[
+  "question_id",
+  "question",
+  "buggy_scot",
+  "predicted_judge_buggy_scot_label",
+  "predicted_judge_buggy_scot_rationale",
+  "gt_buggy_scot_label",
+  "gt_buggy_scot_rationale",
+  "token_usage",
+  "duration",
+  "timestamp"
+]

@@ -1,0 +1,128 @@
+name: buggy_code_generation
+
+system_prompt: |
+  You are an AI assistant that analyzes Stack Overflow posts about Python code.
+
+  You will be provided with structured metadata including:
+    - The original Stack Overflow question
+    - A flawed code intent and functional description
+    - A structured chain-of-thought (SCoT) reconstruction of the user's thought process
+
+  Your goal is to generate:
+    1. A **buggy Python script** that faithfully reproduces the original flawed behavior described by the user.
+    2. A **requirements.txt** file with pinned versions compatible with **Python 3.8** that can run the buggy script.
+
+  ---
+
+  Requirements for `buggy_code`:
+    - Reconstruct a complete, minimal Python script that runs but preserves the **buggy behavior** or flawed logic.
+    - Use the provided metadata as guidance, but always **cross-check with the original question** for grounding.
+    - Include mock data and imports to make the code runnable.
+    - If the user wrote outdated or incorrect syntax (e.g., `np.randn`), fix it **minimally** and add a comment.
+    - Use **SCoT-style structure** in the code (e.g., `# Step 1`, `# Step 2`) and include **inline comments** that explain where the bug lies.
+    - Add a **print statement** to demonstrate the unexpected or buggy output.
+    - Ensure the code runs under Python 3.8 with mock data, even if the logic is wrong.
+
+  Requirements for `requirements`:
+    - Include only the libraries used in the script.
+    - Pin versions compatible with Python 3.8.
+    - Choose the latest version **that preserves the buggy behavior** (even if deprecated).
+    - Output a newline-separated `requirements.txt` string.
+
+  Output format:
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+
+    {
+      "buggy_code": "<complete Python script as a string>",
+      "requirements": "<newline-separated requirements.txt string>"
+    }
+
+task: |
+  Use the following Stack Overflow post and metadata to generate a runnable Python script that reproduces the described buggy behavior.
+
+  QUESTION:
+  {question}
+
+  CODE INTENT:
+  {code_intent}
+
+  FUNCTIONAL REQUIREMENTS:
+  {functional_requirements}
+
+  STRUCTURED CHAIN OF THOUGHT (SCOT):
+  {buggy_scot}
+
+  Verify all metadata against the question and reproduce the buggy behavior.
+
+  Output format:
+    Return a JSON object parsable by `json.loads()`:
+    Please respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
+
+    {{
+      "buggy_code": "<complete Python script as a string>",
+      "requirements": "<newline-separated requirements.txt string>"
+    }}
+
+refine_exec_error: |
+  Your previously generated **buggy_code** failed during execution. Please revise the script to ensure it:
+
+  - Runs successfully under **Python 3.8**
+  - Fixes runtime or syntax issues **only if necessary for execution**
+  - Preserves the original **buggy behavior and logic**
+  - Produces the same flawed outcome described by the metadata
+
+  Carefully review the following execution feedback and revise the script to be reproducible.
+
+  ---
+  **Feedback:**
+
+  Requirements:
+  {requirements}
+
+  Buggy Code:
+  {buggy_code}
+
+  STDERR:
+  {buggy_stderr}
+
+  Docker Error:
+  {docker_error}
+  ---
+
+  **Output format:**
+  Return a JSON object parsable by `json.loads()`:
+  Please respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
+
+  {{
+    "buggy_code": "<revised executable Python script reflecting the flawed behavior>",
+    "requirements": "<updated or unchanged newline-separated requirements.txt string>"
+  }}
+
+refine_judge_error: |
+  Your generated `buggy_code` was reviewed and received the following evaluation:
+
+  LABEL:
+  {label}
+
+  RATIONALE:
+  {rationale}
+
+  Please revise your buggy code generation to precisely reproduce the original flawed behavior described in the Stack Overflow question and metadata. Ensure your output:
+
+    - Faithfully reflects the original buggy logic and code intent
+    - Strictly aligns with the Stack Overflow question and the provided `code_intent`, `functional_requirements`, and `scot`
+    - Does not incorporate fixes, improvements, or unrelated modifications
+
+  The goal is to **faithfully recreate the buggy behavior**, not to provide a corrected patch.
+
+  **Output format:**
+    Return a JSON object parsable by `json.loads()`:
+    Please respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
+
+  {{
+    "buggy_code": "<complete Python script as a string>",
+    "requirements": "<newline-separated requirements.txt string>"
+  }}

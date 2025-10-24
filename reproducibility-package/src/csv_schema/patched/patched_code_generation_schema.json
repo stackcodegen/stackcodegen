@@ -1,0 +1,19 @@
+[
+  "question_id",
+  "question",
+  "answer",
+  "code_intent",
+  "functional_requirements",
+  "scot_trace",
+  "patched_code",
+  "stdout",
+  "stderr",
+  "requirements",
+  "iteration",
+  "executes",
+  "passed",
+  "error",
+    "generation_token_usage",
+  "review_token_usage",
+  "timestamp"
+]

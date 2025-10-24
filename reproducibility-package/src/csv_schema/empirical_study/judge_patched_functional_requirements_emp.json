@@ -1,0 +1,13 @@
+[
+  "question_id",
+  "question",
+  "answer",
+  "patched_functional_requirements",
+  "predicted_judge_patched_functional_requirements_label",
+  "predicted_judge_patched_functional_requirements_rationale",
+  "gt_patched_functional_requirements_label",
+  "gt_patched_functional_requirements_rationale",
+  "token_usage",
+  "duration",
+  "timestamp"
+]

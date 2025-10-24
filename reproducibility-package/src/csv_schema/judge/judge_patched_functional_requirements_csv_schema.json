@@ -1,0 +1,14 @@
+[
+  "question_id",
+  "question",
+  "answer",
+  "patched_functional_requirements",
+  "judge_patched_functional_requirements_label",
+  "judge_patched_functional_requirements_rational",
+  "iteration",
+  "generation_token_usage",
+  "review_token_usage",
+  "generation_duration",
+  "evaluation_duration",
+  "timestamp"
+]

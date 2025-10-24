@@ -1,0 +1,14 @@
+[
+  "question_id",
+  "question",
+  "answer",
+  "buggy_code",
+  "patched_code",
+  "predicted_judge_patched_code_label",
+  "predicted_judge_patched_code_rationale",
+  "gt_patched_code_label",
+  "gt_patched_code_rationale",
+  "token_usage",
+  "duration",
+  "timestamp"
+]

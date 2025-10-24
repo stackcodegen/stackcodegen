@@ -1,0 +1,13 @@
+[
+  "question_id",
+  "question",
+  "answer",
+  "patched_scot",
+  "predicted_judge_patched_scot_label",
+  "predicted_judge_patched_scot_rationale",
+  "gt_patched_scot_label",
+  "gt_patched_scot_rationale",
+  "token_usage",
+  "duration",
+  "timestamp"
+]

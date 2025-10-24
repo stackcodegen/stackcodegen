@@ -1,0 +1,22 @@
+[
+  "question_id",
+  "question",
+  "buggy_code_intent",
+  "buggy_functional_requirements",
+  "buggy_scot",
+  "buggy_code",
+  "stdout",
+  "judge_buggy_code_label",
+  "judge_buggy_code_rational",
+  "requirements",
+  "stderr",
+  "error",
+  "exec_iteration",
+  "review_iteration",
+  "exit_code",
+  "generation_token_usage",
+  "review_token_usage",
+  "generation_duration",
+  "evaluation_duration",
+  "timestamp"
+]

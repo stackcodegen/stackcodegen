@@ -1,0 +1,34 @@
+[
+  {
+    "role": "user",
+    "content": " Use the following stack overflow question and generated code intent to judge the generated code intent following the system prompt provided.\n\n  **Question:**\n  python pandas remove duplicate columns\n\n<p>What is the easiest way to remove duplicate columns from a dataframe?</p>\n\n<p>I am reading a text file that has duplicate columns via:</p>\n\n<pre><code>import pandas as pd\n\ndf=pd.read_table(fname)\n</code></pre>\n\n<p>The column names are:</p>\n\n<pre><code>Time, Time Relative, N2, Time, Time Relative, H2, etc...\n</code></pre>\n\n<p>All the Time and Time Relative columns contain the same data. I want:</p>\n\n<pre><code>Time, Time Relative, N2, H2\n</code></pre>\n\n<p>All my attempts at dropping, deleting, etc  such as:</p>\n\n<pre><code>df=df.T.drop_duplicates().T\n</code></pre>\n\n<p>Result in uniquely valued index errors:</p>\n\n<pre><code>Reindexing only valid with uniquely valued index objects\n</code></pre>\n\n<p>Sorry for being a Pandas noob. Any Suggestions would be appreciated.</p>\n\n<hr>\n\n<p><strong>Additional Details</strong></p>\n\n<p>Pandas version: 0.9.0<br>\nPython Version: 2.7.3<br>\nWindows 7<br>\n(installed via Pythonxy 2.7.3.0)</p>\n\n<p>data file (note: in the real file, columns are separated by tabs, here they are separated by 4 spaces):</p>\n\n<pre><code>Time    Time Relative [s]    N2[%]    Time    Time Relative [s]    H2[ppm]\n2/12/2013 9:20:55 AM    6.177    9.99268e+001    2/12/2013 9:20:55 AM    6.177    3.216293e-005    \n2/12/2013 9:21:06 AM    17.689    9.99296e+001    2/12/2013 9:21:06 AM    17.689    3.841667e-005    \n2/12/2013 9:21:18 AM    29.186    9.992954e+001    2/12/2013 9:21:18 AM    29.186    3.880365e-005    \n... etc ...\n2/12/2013 2:12:44 PM    17515.269    9.991756+001    2/12/2013 2:12:44 PM    17515.269    2.800279e-005    \n2/12/2013 2:12:55 PM    17526.769    9.991754e+001    2/12/2013 2:12:55 PM    17526.769    2.880386e-005\n2/12/2013 2:13:07 PM    17538.273    9.991797e+001    2/12/2013 2:13:07 PM    17538.273    3.131447e-005\n</code></pre>\n\n  **buggy_code_intent:**\n  Remove duplicate columns from a pandas DataFrame, where duplicate columns have identical names and data.\n\n"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"label\": \"Correct\",\n  \"rationale\": \"The code intent accurately captures the user's goal as described in the Stack Overflow question. The user wants to remove duplicate columns from a pandas DataFrame, specifically where the duplicate columns have identical names and data. The code intent succinctly summarizes this objective without delving into implementation details or failure analysis, aligning well with the user's stated goal.\"\n}"
+  },
+  {
+    "role": "user",
+    "content": " Use the following stack overflow question and generated code intent to judge the generated code intent following the system prompt provided.\n\n  **Question:**\n  Find the unique values in a column and then sort them\n\n<p>I have a pandas dataframe. I want to print the unique values of one of its columns in ascending order. This is how I am doing it:</p>\n\n<pre><code>import pandas as pd\ndf = pd.DataFrame({'A':[1,1,3,2,6,2,8]})\na = df['A'].unique()\nprint a.sort()\n</code></pre>\n\n<p>The problem is that I am getting a <code>None</code> for the output.</p>\n\n  **buggy_code_intent:**\n  Extract unique values from a DataFrame column and sort them in ascending order.\n\n"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"label\": \"Correct\",\n  \"rationale\": \"The code intent accurately captures the user's goal as described in the Stack Overflow question. The user wants to extract unique values from a DataFrame column and sort them in ascending order. The code intent reflects this goal without delving into the implementation details or the reason for the failure, which is consistent with the user's intended functionality.\"\n}"
+  },
+  {
+    "role": "user",
+    "content": " Use the following stack overflow question and generated code intent to judge the generated code intent following the system prompt provided.\n\n  **Question:**\n  Changing a specific column name in pandas DataFrame\n\n<p>I was looking for an elegant way to change a specified column name in a <code>DataFrame</code>.</p>\n\n<p>play data ...</p>\n\n<pre><code>import pandas as pd\nd = {\n         'one': [1, 2, 3, 4, 5],\n         'two': [9, 8, 7, 6, 5],\n         'three': ['a', 'b', 'c', 'd', 'e']\n    }\ndf = pd.DataFrame(d)\n</code></pre>\n\n<p>The most elegant solution I have found so far ...</p>\n\n<pre><code>names = df.columns.tolist()\nnames[names.index('two')] = 'new_name'\ndf.columns = names\n</code></pre>\n\n<p>I was hoping for a simple one-liner ... this attempt failed ...</p>\n\n<pre><code>df.columns[df.columns.tolist().index('one')] = 'another_name'\n</code></pre>\n\n<p>Any hints gratefully received.</p>\n\n  **buggy_code_intent:**\n  Attempt to rename a specific column in a pandas DataFrame using indexing, but encounter an issue due to the immutability of the `.columns` attribute.\n\n"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"label\": \"Partially Correct\",\n  \"rationale\": \"The code intent captures the user's goal of renaming a specific column in a pandas DataFrame, which is the main task described in the question. However, it also includes details about the failure due to the immutability of the `.columns` attribute, which is not part of the user's intended functionality but rather an explanation of why the code failed. The intent should focus solely on the user's goal without delving into the reasons for the failure.\"\n}"
+  },
+  {
+    "role": "user",
+    "content": " Use the following stack overflow question and generated code intent to judge the generated code intent following the system prompt provided.\n\n  **Question:**\n  check if variable is dataframe\n\n<p>when my function f is called with a variable I want to check if var is a pandas dataframe:</p>\n\n<pre><code>def f(var):\n    if var == pd.DataFrame():\n        print \"do stuff\"\n</code></pre>\n\n<p>I guess the solution might be quite simple but even with </p>\n\n<pre><code>def f(var):\n    if var.values != None:\n        print \"do stuff\"\n</code></pre>\n\n<p>I can't get it to work like expected. </p>\n\n  **buggy_code_intent:**\n  Check if a given variable is a pandas DataFrame within a function and perform an action if the check passes.\n\n"
+  },
+  {
+    "role": "assistant",
+    "content": "{\n  \"label\": \"Correct\",\n  \"rationale\": \"The code intent accurately captures the user's goal, which is to check if a given variable is a pandas DataFrame within a function and perform an action if the check passes. The user explicitly states their intention to check if 'var' is a pandas DataFrame and to 'do stuff' if it is, which aligns with the code intent provided.\"\n}"
+  }
+]

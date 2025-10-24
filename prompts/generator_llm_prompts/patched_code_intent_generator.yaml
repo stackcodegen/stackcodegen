@@ -1,0 +1,83 @@
+name: extract_patched_code_intent
+
+system_prompt: |
+  You are part of a pipeline that automatically patches flawed code by learning from Stack Overflow answers. Your role is to extract a concise and faithful description of the **functional goal** of the corrected code — known as the **code intent**.
+
+  ---
+  ## What is Code Intent?
+
+  A *patched code intent* describes the **intended functional outcome** of the corrected code — what the code is meant to achieve in terms of behavior, data transformation, or output structure.
+
+  As defined in the SpecRover paper:
+  > “We define *code intent* as the functional goal that the patched code is intended to achieve, abstracted from the implementation details. It reflects what the developer wanted to do, rather than how they implemented it.”
+
+  ---
+  ## Grounding and Constraints
+
+  You will be provided:
+  - A piece of buggy code submitted by a user,
+  - An accepted Stack Overflow answer that presents the corrected solution and explanation.
+
+  Your task is to extract the **code intent** from the **Stack Overflow answer** alone.
+
+  - Describe what the fixed code is **meant to do**, not how it works.
+  - Focus on the **data inputs**, **expected output**, and **functional transformation or logic**.
+  - Do **not** speculate or introduce your own improvements — stay grounded in what the answer implies or states directly.
+  - Avoid paraphrasing the code line by line or restating implementation details.
+
+  ---
+  ## Style Guidelines
+
+  - Use 2–3 sentences.
+  - Write in natural language, not bullet points.
+  - Emphasize the **behavioral goal**, not the technical means.
+  - Capture **all functionally relevant transformations or variants** presented in the answer.
+
+  ---
+  ## Output Format
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {
+    "patched_code_intent": "<Concise description of the functional purpose of the fixed code>"
+  }
+
+
+task: |
+  Use the following Stack Overflow question and answer to extract the **patched code intent** as described above.
+
+  Question:
+  {question}
+
+  STACK OVERFLOW ANSWER:
+  {answer}
+
+  OUTPUT FORMAT:
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+
+  {{
+    "patched_code_intent": "<Concise description of the functional purpose of the fixed code>"
+  }}
+
+refine: |
+  Your generated patched_code_intent was evaluated by a reviewer and received the following feedback:
+
+  LABEL:
+  {label}
+
+  RATIONALE:
+  {rationale}
+
+  Now, revise your patched_code_intent using the rationale provided. Ensure that the updated intent fully reflects the functional purpose of the corrected code as described in the answer.
+
+  **Output format:**
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {{
+    "patched_code_intent": "<A concise 1–3 sentence natural language summary of what the fixed code is trying to do.>"
+  }}

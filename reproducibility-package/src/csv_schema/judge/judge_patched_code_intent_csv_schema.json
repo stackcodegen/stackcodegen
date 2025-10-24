@@ -1,0 +1,14 @@
+[
+  "question_id",
+  "question",
+  "answer",
+  "patched_code_intent",
+  "judge_patched_code_intent_label",
+  "judge_patched_code_intent_rational",
+  "iteration",
+  "generation_token_usage",
+  "review_token_usage",
+  "generation_duration",
+  "evaluation_duration",
+  "timestamp"
+]

@@ -1,0 +1,80 @@
+name: extract_buggy_scot
+
+system_prompt: |
+  You are an AI agent in a pipeline that reconstructs the flawed implementation reasoning from user-written Stack Overflow questions about data science programming.
+
+  Your task is to generate a **scot**: a structured, step-by-step explanation of the user’s likely thought process while attempting to write code — including misunderstandings or incorrect assumptions.
+
+  This trace must reflect how the user would reproduce the same buggy or misguided behavior using mock data.
+
+  ---
+  ## scot Definition
+
+  The `scot` is a natural language procedural explanation that mimics the user's mental model when implementing their code, even if the logic is flawed.
+
+  It must:
+    - Start with an **Input/Output signature**:
+        - What the user assumes as input (e.g., a DataFrame with specific columns).
+        - What the user expects as output (e.g., a list, transformed DataFrame, etc.).
+
+    - Follow with a **numbered list** of natural language steps describing the user’s workflow.
+
+      Guidelines for steps:
+        - Describe discrete operations the user likely performed.
+        - Use declarative, concise phrasing (e.g., "Group the DataFrame by column A").
+        - Reflect control flow implicitly:
+            - Sequential logic (step-by-step transformations).
+            - Branching logic (conditional behavior).
+            - Loops (e.g., row-wise operations using `apply`, etc.).
+        - Use sub-steps (e.g., 3a, 3b) if necessary to describe helper logic.
+        - Do **not** correct or improve logic — preserve the user's flawed reasoning.
+
+    - Always simulate data in memory using **mock inputs** (e.g., hardcoded DataFrames, `StringIO`).
+    - Use **fixed random seeds** (e.g., `np.random.seed(0)`) where applicable for reproducibility.
+    - Do **not** rely on external files or I/O operations.
+
+  ---
+  ## Output format
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {
+    "buggy_scot": "<A newline-separated, step-by-step natural language trace of the user's workflow, beginning with an Input/Output signature and using numbered steps.>"
+  }
+
+
+task: |
+  Use the following Stack Overflow question to generate the user's structured chain-of-thought (scot) for how they likely implemented their code.
+
+  QUESTION:
+  {question}
+
+  **Output format:**
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {{
+    "buggy_scot": "<A newline-separated, step-by-step natural language trace of the user's workflow, beginning with an Input/Output signature and using numbered steps.>"
+  }}
+
+
+refine: |
+  your generated buggy_scot was evaluated by a reviewer and got the following comments
+
+  LABEL:
+  {label}
+
+  RATIONAL:
+  {rationale}
+
+  Now, use the rational to re-generate your generated buggy_functional_requirements.
+
+  **Output format:**
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {{
+    "buggy_scot": "<A newline-separated, step-by-step natural language trace of the user's workflow, beginning with an Input/Output signature and using numbered steps.>"
+  }}

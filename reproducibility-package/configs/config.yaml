@@ -1,0 +1,136 @@
+paths:
+  prompt_dir: prompts/code_extractor/
+  data_dir: data/so_posts/incorrect_functionality/
+  output_dir: outputs/
+
+generator_llm: claude4
+judge_llm: gpt4_judge
+
+
+models:
+  deepseek-coder-v2:
+    provider: ollama
+    name: deepseek-coder-v2:16b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+  qwen3_8:
+    provider: ollama
+    name: qwen3:8b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  qwen2_5:
+    provider: ollama
+    name: qwen2.5-coder:7b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  starcoder2:
+    provider: ollama
+    name: starcoder2:15b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  starcoder:
+    provider: ollama
+    name: starcoder:7b
+    temperature: 0.5
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  codellama:
+    provider: ollama
+    name: codellama:70b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  codellama_7b:
+    provider: ollama
+    name: codellama:7b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  llama3_8b:
+    provider: ollama
+    name: llama3:8b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  claude4:
+    provider: anthropic
+    name: claude-sonnet-4-20250514
+    temperature: 0
+    max_tokens: 8192
+    api_base: null
+
+  gpt4_judge:
+    provider: openai
+    name: gpt-4o-2024-08-06
+    temperature: 0
+    max_tokens: 4096
+    api_base: null
+
+  o3:
+    provider: openai
+    name: o3-2025-04-16
+    temperature: 0
+    max_tokens: 7000
+    api_base: null
+
+  gpt4:
+    provider: openai
+    name: gpt-4o-2024-08-06
+    temperature: 0
+    max_tokens: 7000
+    api_base: null
+
+  phi4_latest:
+    provider: ollama
+    name: phi4:latest
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  gemma3_27b:
+    provider: ollama
+    name: gemma3:27b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  llama4_latest:
+    provider: ollama
+    name: llama4:latest
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  qwen2_5_coder_32b:
+    provider: ollama
+    name: qwen2.5-coder:32b
+    temperature: 0
+    max_tokens: 2048
+    api_base: http://localhost:11434
+
+  claude3_7:
+    provider: anthropic
+    name: claude-3-7-sonnet-latest
+    temperature: 0
+    max_tokens: 4096
+    api_base: null
+
+  claude3_5:
+    provider: anthropic
+    name: claude-3-5-haiku-latest
+    temperature: 0
+    max_tokens: 4096
+    api_base: null
+
+

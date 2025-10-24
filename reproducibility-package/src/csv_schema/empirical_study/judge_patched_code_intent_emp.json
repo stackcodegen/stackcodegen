@@ -1,0 +1,13 @@
+[
+  "question_id",
+  "question",
+  "answer",
+  "patched_code_intent",
+  "predicted_judge_patched_code_intent_label",
+  "predicted_judge_patched_code_intent_rationale",
+  "gt_patched_code_intent_label",
+  "gt_patched_code_intent_rationale",
+  "token_usage",
+  "duration",
+  "timestamp"
+]

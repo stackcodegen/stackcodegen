@@ -1,0 +1,32 @@
+"question_id","question","buggy_functional_requirements","judge_buggy_functional_requirements_label","judge_buggy_functional_requirements_rational","iteration","generation_token_usage","review_token_usage","generation_duration","evaluation_duration","timestamp"
+"20076195","What is the most efficient way of counting occurrences in pandas?
+<p>I have a large (about 12M rows) DataFrame <code>df</code>:</p>
+<pre><code>df.columns = ['word','documents','frequency']
+</code></pre>
+<p>The following ran in a timely fashion:</p>
+<pre><code>word_grouping = df[['word','frequency']].groupby('word')
+MaxFrequency_perWord = word_grouping[['frequency']].max().reset_index()
+MaxFrequency_perWord.columns = ['word','MaxFrequency']
+</code></pre>
+<p>However, this is taking an unexpectedly long time to run:</p>
+<pre><code>Occurrences_of_Words = word_grouping[['word']].count().reset_index()
+</code></pre>
+<p>What am I doing wrong here?  Is there a better way to count occurrences in a large DataFrame?</p>
+<pre><code>df.word.describe()
+</code></pre>
+<p>ran pretty well, so I really did not expect this <code>Occurrences_of_Words</code> DataFrame to take very long to build.</p>
+","{
+  ""functional_requirements"": {
+    ""input_output"": ""- Input: A large DataFrame (12M rows) with columns ['word', 'documents', 'frequency'] containing string words and numeric values.\n- Output: A DataFrame called 'Occurrences_of_Words' that counts how many times each word appears in the original DataFrame."",
+    ""expected_behavior"": ""- Use `groupby('word')` to group the DataFrame by the 'word' column.\n- Apply `.count()` on the grouped object to count occurrences of each word.\n- The user expects this operation to run quickly since `df.word.describe()` ran well and a similar `max()` operation was fast.\n- The user believes `word_grouping[['word']].count()` will efficiently count word occurrences."",
+    ""edge_cases"": ""- The user may not realize that counting on a grouped column that was used for grouping is redundant and inefficient.\n- Using `.count()` on the grouping column itself may cause performance issues or unexpected behavior.\n- The user might not be aware that `value_counts()` or `size()` could be more appropriate for counting occurrences.""
+  }
+}","Correct","The functional requirements accurately capture the user's expectations and misunderstandings as described in the Stack Overflow question. The `input_output` section correctly identifies the input as a large DataFrame with specific columns and the desired output as a DataFrame counting word occurrences. The `expected_behavior` section reflects the user's approach of using `groupby('word')` and `.count()` to count occurrences, and their expectation that this should be efficient based on previous operations. The `edge_cases` section appropriately highlights the user's potential misunderstanding of the inefficiency of counting on the grouping column itself and suggests more efficient alternatives like `value_counts()` or `size()`. Overall, the functional requirements comprehensively reflect the user's expectations and misunderstandings.","1","{
+  ""input_tokens"": 3267,
+  ""output_tokens"": 278,
+  ""total_tokens"": 3545
+}","{
+  ""input_tokens"": 4291,
+  ""output_tokens"": 157,
+  ""total_tokens"": 4448
+}","6.65","2.55","2025-07-21T16:59:28.318000"

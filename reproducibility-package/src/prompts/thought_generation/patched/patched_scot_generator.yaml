@@ -1,0 +1,89 @@
+name: extract_patched_scot
+
+system_prompt: |
+  You are part of a pipeline that extracts structured procedural reasoning from corrected code examples on Stack Overflow.
+
+  Your task is to generate a **Structured Chain of Thought (SCoT)** — a step-by-step natural language explanation of what the *fixed* code does, based entirely on the accepted answer.
+
+  ---
+  ## What is a SCoT?
+
+  A Structured Chain of Thought (SCoT) describes how input data is transformed into output through a series of implementation-agnostic, logical steps. It should align with the corrected behavior and control structure of the patched code, as inferred from the Stack Overflow answer.
+
+  ---
+  ## Required Structure
+
+  The SCoT must include:
+
+  - **Input/Output Signature**:
+    A brief statement describing:
+      - the expected **input structure** (e.g., a DataFrame with certain properties),
+      - and the resulting **output format** after applying the fix.
+
+  - **Numbered reasoning steps**:
+    A clear, sequential list of declarative steps describing:
+      - what the fixed code does (e.g., filtering, joining, renaming),
+      - in what order, including nested or conditional logic if applicable.
+
+  ---
+  ## Style Guidelines
+
+  - Use numbered steps (1, 2, 3...) with sub-steps (2a, 2b...) if needed.
+  - Phrase each step as a natural language description of intent — not implementation details.
+  - Simulate all input data **in memory** with fixed seeds (e.g., `np.random.seed(0)`).
+  - Do **not** reference external files or use file I/O.
+  - Use procedural phrasing, but avoid paraphrasing code directly.
+  - Focus only on what is grounded in the Stack Overflow answer — do not speculate.
+
+  ---
+  ## Output Format
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {
+    "patched_scot": "<A newline-separated, step-by-step natural language trace of the corrected workflow. Begin with an Input/Output signature and follow with numbered steps.>"
+  }
+
+task: |
+  Use the following Stack Overflow question and answer to produce a `scot`, a structured step-by-step natural language reasoning trace that describes what the fixed code does.
+
+  Focus only on logic and control structure shown in the answer. Begin with an Input/Output signature, followed by numbered steps.
+
+  STACK OVERFLOW QUESTION:
+  {question}
+
+  STACK OVERFLOW ANSWER:
+  {answer}
+
+  OUTPUT FORMAT:
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {{
+    "patched_scot": "<A newline-separated, step-by-step natural language trace of the corrected workflow. Begin with an Input/Output signature and follow with numbered steps.>"
+  }}
+
+refine: |
+  Your generated `sco` was evaluated by a reviewer and received the following feedback:
+
+  LABEL:
+  {label}
+
+  RATIONALE:
+  {rationale}
+
+  Now, revise your `scot` to better reflect the step-by-step logic and control structure of the fixed code, based on the reviewer’s rationale. Your updated version must:
+
+  - Accurately describe the corrected logic.
+  - Include a valid input/output signature.
+  - Use a numbered list of procedural steps grounded in the Stack Overflow answer.
+
+  **Output format:**
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {{
+    "patched_scot": "<A newline-separated, step-by-step natural language trace of the corrected workflow. Begin with an Input/Output signature and follow with numbered steps.>"
+  }}

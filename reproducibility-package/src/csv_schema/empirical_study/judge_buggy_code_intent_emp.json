@@ -1,0 +1,12 @@
+[
+  "question_id",
+  "question",
+  "buggy_code_intent",
+  "predicted_judge_buggy_code_intent_label",
+  "predicted_judge_buggy_code_intent_rationale",
+  "gt_buggy_code_intent_label",
+  "gt_buggy_code_intent_rationale",
+  "token_usage",
+  "duration",
+  "timestamp"
+]

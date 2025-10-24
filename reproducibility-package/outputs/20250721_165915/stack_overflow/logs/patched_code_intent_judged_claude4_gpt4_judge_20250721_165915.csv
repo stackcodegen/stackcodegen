@@ -1,0 +1,29 @@
+"question_id","question","answer","patched_code_intent","judge_patched_code_intent_label","judge_patched_code_intent_rational","iteration","generation_token_usage","review_token_usage","generation_duration","evaluation_duration","timestamp"
+"20076195","What is the most efficient way of counting occurrences in pandas?
+<p>I have a large (about 12M rows) DataFrame <code>df</code>:</p>
+<pre><code>df.columns = ['word','documents','frequency']
+</code></pre>
+<p>The following ran in a timely fashion:</p>
+<pre><code>word_grouping = df[['word','frequency']].groupby('word')
+MaxFrequency_perWord = word_grouping[['frequency']].max().reset_index()
+MaxFrequency_perWord.columns = ['word','MaxFrequency']
+</code></pre>
+<p>However, this is taking an unexpectedly long time to run:</p>
+<pre><code>Occurrences_of_Words = word_grouping[['word']].count().reset_index()
+</code></pre>
+<p>What am I doing wrong here?  Is there a better way to count occurrences in a large DataFrame?</p>
+<pre><code>df.word.describe()
+</code></pre>
+<p>ran pretty well, so I really did not expect this <code>Occurrences_of_Words</code> DataFrame to take very long to build.</p>
+","<p>I think <code>df['word'].value_counts()</code> should serve. By skipping the groupby machinery, you'll save some time. I'm not sure why <code>count</code> should be much slower than <code>max</code>. Both take some time to avoid missing values. (Compare with <code>size</code>.)</p>
+
+<p>In any case, value_counts has been <a href=""https://github.com/pydata/pandas/commit/d1a1fa27e520c0d196981df58edb1bd5d3cc3161"">specifically optimized</a> to handle object type, like your words, so I doubt you'll do much better than that.</p>
+","Count the occurrences of each unique word in a DataFrame column efficiently using value_counts() instead of groupby operations to avoid performance issues with large datasets.","Correct","The patched code intent accurately reflects the functional goal of the fixed code as described in the accepted answer. The answer suggests using `df['word'].value_counts()` to efficiently count occurrences of each unique word, bypassing the slower groupby operations. The intent captures this by stating the goal is to count occurrences efficiently using `value_counts()` to avoid performance issues with large datasets, which aligns with the solution provided in the answer.","1","{
+  ""input_tokens"": 2043,
+  ""output_tokens"": 49,
+  ""total_tokens"": 2092
+}","{
+  ""input_tokens"": 4068,
+  ""output_tokens"": 100,
+  ""total_tokens"": 4168
+}","1.82","1.77","2025-07-21T17:01:09.295111"

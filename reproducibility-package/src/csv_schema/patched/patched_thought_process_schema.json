@@ -1,0 +1,13 @@
+[
+  "question_id",
+  "question",
+  "buggy_code",
+  "answer",
+  "code_intent",
+  "functional_requirements",
+  "scot_trace",
+  "timestamp",
+  "generation_token_usage",
+  "review_token_usage",
+  "error"
+]

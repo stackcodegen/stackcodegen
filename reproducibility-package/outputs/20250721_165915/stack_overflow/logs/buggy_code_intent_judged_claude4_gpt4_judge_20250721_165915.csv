@@ -1,0 +1,26 @@
+"question_id","question","buggy_code_intent","judge_buggy_code_intent_label","judge_buggy_code_intent_rational","iteration","generation_token_usage","review_token_usage","generation_duration","evaluation_duration","timestamp"
+"20076195","What is the most efficient way of counting occurrences in pandas?
+<p>I have a large (about 12M rows) DataFrame <code>df</code>:</p>
+<pre><code>df.columns = ['word','documents','frequency']
+</code></pre>
+<p>The following ran in a timely fashion:</p>
+<pre><code>word_grouping = df[['word','frequency']].groupby('word')
+MaxFrequency_perWord = word_grouping[['frequency']].max().reset_index()
+MaxFrequency_perWord.columns = ['word','MaxFrequency']
+</code></pre>
+<p>However, this is taking an unexpectedly long time to run:</p>
+<pre><code>Occurrences_of_Words = word_grouping[['word']].count().reset_index()
+</code></pre>
+<p>What am I doing wrong here?  Is there a better way to count occurrences in a large DataFrame?</p>
+<pre><code>df.word.describe()
+</code></pre>
+<p>ran pretty well, so I really did not expect this <code>Occurrences_of_Words</code> DataFrame to take very long to build.</p>
+","Count the number of occurrences of each unique word in a large DataFrame by grouping the data and applying a count operation.","Correct","The code intent accurately captures the user's goal, which is to count the number of occurrences of each unique word in a large DataFrame by grouping the data and applying a count operation. The user explicitly describes their attempt to count occurrences using a groupby operation, which aligns with the code intent provided.","1","{
+  ""input_tokens"": 2738,
+  ""output_tokens"": 39,
+  ""total_tokens"": 2777
+}","{
+  ""input_tokens"": 2845,
+  ""output_tokens"": 74,
+  ""total_tokens"": 2919
+}","1.94","1.64","2025-07-21T16:59:19.118182"

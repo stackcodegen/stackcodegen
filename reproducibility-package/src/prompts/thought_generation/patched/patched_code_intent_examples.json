@@ -1,0 +1,21 @@
+[
+  {
+    "role": "user",
+    "content": "Use the following buggy code and Stack Overflow answer to extract the **patched code intent** as described above.\n\nQuestion:\nFind the unique values in a column and then sort them\n\n<p>I have a pandas dataframe. I want to print the unique values of one of its columns in ascending order. This is how I am doing it:</p>\n\n<pre><code>import pandas as pd\ndf = pd.DataFrame({'A':[1,1,3,2,6,2,8]})\na = df['A'].unique()\nprint a.sort()\n</code></pre>\n\n<p>The problem is that I am getting a <code>None</code> for the output.</p>\n\nSTACK OVERFLOW ANSWER:\n<p><a href=\"https://docs.python.org/3/library/functions.html#sorted\" rel=\"noreferrer\"><code>sorted(iterable)</code></a>: Return a new sorted list from the items in <em>iterable</em>.<br><br><strong>CODE</strong><br></p>\n<pre><code>import pandas as pd\ndf = pd.DataFrame({'A':[1,1,3,2,6,2,8]})\na = df['A'].unique()\nprint(sorted(a))\n</code></pre>\n<p><strong>OUTPUT</strong></p>\n<pre><code>[1, 2, 3, 6, 8]</code></pre>\n\nOUTPUT FORMAT:\n{\n  \"patched_code_intent\": \"<Concise description of the functional purpose of the fixed code>\"\n}"
+  },{
+  "role": "assistant",
+  "content": "{\n  \"patched_code_intent\": \"Extract unique values from a DataFrame column and print them in sorted order.\"\n}"
+},
+  {
+    "role": "user",
+    "content": "Use the following buggy code and Stack Overflow answer to extract the **patched code intent** as described above.\n\n**Question:**\nChanging a specific column name in pandas DataFrame\n\n<p>I was looking for an elegant way to change a specified column name in a <code>DataFrame</code>.</p>\n\n<p>play data ...</p>\n<pre><code>import pandas as pd\nd = {\n         'one': [1, 2, 3, 4, 5],\n         'two': [9, 8, 7, 6, 5],\n         'three': ['a', 'b', 'c', 'd', 'e']\n    }\ndf = pd.DataFrame(d)\n</code></pre>\n\n<p>The most elegant solution I have found so far ...</p>\n<pre><code>names = df.columns.tolist()\nnames[names.index('two')] = 'new_name'\ndf.columns = names\n</code></pre>\n\n<p>I was hoping for a simple one-liner ... this attempt failed ...</p>\n<pre><code>df.columns[df.columns.tolist().index('one')] = 'another_name'\n</code></pre>\n\n<p>Any hints gratefully received.</p>\n\n**Answer:**\n<p>A one liner does exist:</p>\n<pre><code>df = df.rename(columns = {'two':'new_name'})\n</code></pre>\n\n<p>Following is the docstring for the <code>rename</code> method.</p>\n<pre>\nDefinition: df.rename(self, index=None, columns=None, copy=True, inplace=False)\nDocstring:\nAlter index and / or columns using input function or\nfunctions. Function / dict values must be unique (1-to-1). Labels not\ncontained in a dict / Series will be left as-is.\n\nParameters\n----------\nindex : dict-like or function, optional\n    Transformation to apply to index values\ncolumns : dict-like or function, optional\n    Transformation to apply to column values\ncopy : boolean, default True\n    Also copy underlying data\ninplace : boolean, default False\n    Whether to return a new DataFrame. If True then value of copy is\n    ignored.\n\nSee also\n--------\nSeries.rename\n\nReturns\n-------\nrenamed : DataFrame (new object)\n</pre>\n\n**OUTPUT FORMAT:**\n{\n  \"patched_code_intent\": \"<Concise description of the functional purpose of the fixed code>\"\n}"
+  },{
+  "role": "assistant",
+  "content": "{\n  \"patched_code_intent\": \"Rename a specific column in a pandas DataFrame using the pandas rename method for efficient and error-free column renaming.\"\n}"
+}
+
+
+
+
+
+]

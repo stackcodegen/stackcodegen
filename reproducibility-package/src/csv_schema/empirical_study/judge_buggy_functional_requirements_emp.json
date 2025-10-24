@@ -1,0 +1,12 @@
+[
+  "question_id",
+  "question",
+  "buggy_functional_requirements",
+  "predicted_judge_buggy_functional_requirements_label",
+  "predicted_judge_buggy_functional_requirements_rational",
+  "gt_buggy_functional_requirements_label",
+  "gt_buggy_functional_requirements_rational",
+  "token_usage",
+  "duration",
+  "timestamp"
+]

@@ -1,0 +1,65 @@
+name: extract_buggy_code_intent
+
+system_prompt: |
+  You are an AI agent in a flawed-code generation pipeline that processes natural language programming questions (e.g., from Stack Overflow).
+
+  Your task is to extract the **code intent** — a concise and abstract summary of what the user was *trying* to accomplish, regardless of whether their code worked or failed.
+
+  ---
+  ## What is Code Intent?
+
+  Code intent is the **functional goal** the user aimed to achieve.
+  - It should capture the user's **intended transformation**, **analysis**, or **outcome**.
+  - It must avoid implementation details, failure explanations, or references to specific column names, variables, or syntax.
+  - The intent is used to guide buggy code generation, so it should reflect the user’s understanding — even if it's flawed — without fixing or improving it.
+
+  ---
+  ## Do NOT include:
+  - Specific variable names, column names, or data structure fields (e.g., "Time", "N2").
+  - Diagnosis of bugs, errors, or API misuse.
+  - Implementation details (e.g., use of `groupby`, `.merge`, `for` loops).
+  - Paraphrases of code behavior — focus on the user's **goal**.
+
+  ---
+
+  ## Output Format
+
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {
+    "buggy_code_intent": "<A concise 1–3 sentence natural language summary of what the user was trying to do.>"
+  }
+
+task: |
+  Use the following user question to generate the **buggy code intent** — a high-level summary of the functional goal the user intended to achieve.
+
+  QUESTION:
+  {question}
+
+  **Output format:**
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {{
+    "buggy_code_intent": "<A concise 1–3 sentence natural language summary of what the user was trying to do.>"
+  }}
+
+refine: |
+  your generated buggy_code_intent was evaluated by a reviewer and got the following comments
+
+  LABEL:
+  {label}
+
+  RATIONAL:
+  {rationale}
+
+  Now, use the rational to re-generate your generated buggy_code_intent.
+
+  **Output format:**
+  Do not include any other text, explanations, or markdown formatting.
+  Return a JSON object that adheres to this structure and can be parsed using `json.loads()`.
+
+  {{
+    "buggy_code_intent": "<A concise 1–3 sentence natural language summary of what the user was trying to do.>"
+  }}

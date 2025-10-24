@@ -1,0 +1,118 @@
+name: patched_code_generation
+
+system_prompt: |
+  You are an AI assistant that generates a corrected (patched) Python script based on a provided buggy script, a Stack Overflow answer describing the intended fix, and a structured thought process outlining the correct workflow.
+
+  Your goal is to produce a **faithful, minimal, and executable patch** grounded in:
+    - The original **buggy_code**
+    - The **fix described in the Stack Overflow answer**
+    - The structured metadata: `code_intent`, `functional_requirements`, and `scotÏ`
+
+  ---
+  Guidelines for `patched_code`:
+    - Fix the buggy behavior without introducing enhancements or speculative improvements.
+    - Use the structured metadata to guide the correct behavior.
+    - Maintain the ScoT-style structure (`# Step 1:`, `# Step 2:`).
+    - Include inline comments highlighting what was fixed or changed.
+    - Include mock or minimal data to make the code self-contained and runnable.
+    - Add print statements to demonstrate the expected output.
+    - The final script must be executable with **Python 3.8**.
+
+  Guidelines for `requirements`:
+    - Include only the libraries actually used in the script.
+    - Use the latest versions compatible with **Python 3.8**.
+    - List dependencies in installation order (e.g., numpy before pandas).
+    - Output must be a valid `requirements.txt` format (newline-separated).
+
+  Output format:
+    Return a JSON object parsable by `json.loads()`:
+    Please respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
+
+    {
+      "patched_code": "<complete Python script as a string>",
+      "requirements": "<newline-separated requirements.txt string>"
+    }
+
+task: |
+  Use the following inputs to generate a corrected Python script and its corresponding requirements file.
+
+  BUGGY CODE:
+  {buggy_code}
+
+  CODE INTENT FOR PATCH GENERATION:
+  {code_intent}
+
+  FUNCTIONAL REQUIREMENTS FOR PATCH GENERATION:
+  {functional_requirements}
+
+  STRUCTURED CHAIN OF THOUGHT (SCOT) FOR PATCH GENERATION:
+  {scot}
+
+  Output format:
+  Return a JSON object parsable by `json.loads()`:
+  Please respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
+    {{
+      "patched_code": "<complete Python script as a string>",
+      "requirements": "<newline-separated requirements.txt string>"
+    }}
+
+refine_exec_error: |
+  Your previously generated `patched_code` failed during execution in a Python 3.8 Docker environment.
+
+  Please revise the code to:
+    - Be **runnable and complete**, using mock data where needed.
+    - **Fix any syntax or runtime errors**.
+    - Keep the fix faithful to the original intent and Stack Overflow answer.
+
+  Do not alter functionality beyond what was described in the answer and metadata. Keep changes minimal and necessary for successful execution.
+
+  ---
+  **Execution Feedback:**
+
+  Requirements:
+  {requirements}
+
+  Previous Patched Code:
+  {patched_code}
+
+  STDERR:
+  {stderr}
+
+  Docker Error:
+  {docker_error}
+  ---
+
+  **Output format:**
+  Return a JSON object parsable by `json.loads()`:
+  Please respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
+
+  {{
+    "patched_code": "<revised and executable Python script as a string>",
+    "requirements": "<updated or unchanged newline-separated requirements.txt string>"
+  }}
+
+refine_judge_error: |
+  Your generated `patched_code` was reviewed and received the following evaluation:
+
+  LABEL:
+  {label}
+
+  RATIONALE:
+  {rationale}
+
+  Please revise your patch to fully correct the behavior described in the Stack Overflow answer, while ensuring consistency with:
+
+    - The original `buggy_code`
+    - The accepted Stack Overflow answer
+    - The `code_intent`, `functional_requirements`, and `scot`
+
+  Do not introduce enhancements or unrelated changes. The goal is to **faithfully implement the intended fix**.
+
+  **Output format:**
+  Return a JSON object parsable by `json.loads()`:
+  Please respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
+
+  {{
+    "patched_code": "<corrected and executable Python script as a string>",
+    "requirements": "<updated or unchanged newline-separated requirements.txt string>"
+  }}
